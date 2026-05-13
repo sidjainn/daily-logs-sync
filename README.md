@@ -58,7 +58,7 @@ You need a Google account. GitHub, an LLM API key, and PostHog are each optional
 
 ### 2. Configure variables
 
-At the top of `apps-script.gs`, edit:
+Inside the Apps Script editor, open the `Code.gs` file you just pasted into. The first 20-ish lines are a `// ===== CONFIG =====` block — edit the values right there in the editor, then **Save** (`Cmd/Ctrl + S`).
 
 | Variable | What | Default |
 |---|---|---|
@@ -67,7 +67,7 @@ At the top of `apps-script.gs`, edit:
 | `GITHUB_BRANCH` | Branch | `'main'` |
 | `POSTHOG_HOST` | `us.i.posthog.com` or `eu.i.posthog.com` | US |
 | `POSTHOG_EVENT_NAME` | Event name in PostHog (e.g. `'daily_log'`) | `'EVENT_NAME'` |
-| `LLM_MODEL` | Ollama Cloud model | `'gemma4:31b-cloud'` |
+| `LLM_MODEL` | Any Ollama Cloud model — free, [pick from the model list](https://ollama.com/search?c=cloud) | `'gemma4:31b-cloud'` |
 | `ECHO_INTERVAL_DAYS` | Days between echo emails | `4` |
 | `ECHO_ANCHORS_MONTHS` | Months-ago to echo | `[1, 3, 6, 12]` |
 
@@ -80,7 +80,7 @@ In Apps Script: **Project Settings** (gear icon) → **Script properties** → a
 | Property | Required for | How to get |
 |---|---|---|
 | `GITHUB_TOKEN` | GitHub sync | [Create a fine-grained token](https://github.com/settings/personal-access-tokens/new) with `Contents: read & write` scope on your target repo |
-| `OLLAMA_API_KEY` | LLM tagging + echoes highlights | [ollama.com](https://ollama.com) → sign up → API keys |
+| `OLLAMA_API_KEY` | LLM tagging + echoes highlights | Free — [ollama.com](https://ollama.com) → sign up → **API keys**. Several cloud models available; swap via `LLM_MODEL` |
 | `POSTHOG_API_KEY` | PostHog events | [Project settings → Project API key](https://posthog.com/docs/api#how-to-find-your-api-key) |
 
 If you skip any of these, the script just won't run that integration. GitHub-less mode still tags and emails. PostHog-less mode still pushes to GitHub.
@@ -187,7 +187,7 @@ summary: Built the sync pipeline end-to-end and went for an evening walk.
 ## Notes
 
 - All PostHog events get a deterministic UUID per file, so backfills and re-runs never create duplicates.
-- The LLM prompt asks for strict JSON output. If your model drifts, swap `LLM_MODEL` for something stricter.
+- The LLM prompt asks for strict JSON output. If your model drifts, swap `LLM_MODEL` for another free Ollama Cloud model ([model list](https://ollama.com/search?c=cloud)).
 - The Apps Script trigger UI only shows "Daily" — interval-based triggers like "every 4 days" exist programmatically but the UI rounds them visually. Use the `installEchoesTrigger` function to set them; don't recreate via the UI.
 
 ## Built by
