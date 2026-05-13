@@ -33,9 +33,9 @@ You simply keep writing the way you already do. The system just needs to be set 
 Google Doc (monthly)
     │
     ▼
-Apps Script (this repo)
+Apps Script
     │
-    ├──► GitHub repo  (markdown + frontmatter)
+    ├──► Your private GitHub repo  (markdown + frontmatter)
     │       │
     │       └──► sentiment.html report
     │
@@ -43,6 +43,8 @@ Apps Script (this repo)
     │
     └──► PostHog  (daily_log events)
 ```
+
+> This repo holds the script + setup docs for reference. Your journal entries live in a separate **private** GitHub repo that you create and own.
 
 ## Getting started
 
