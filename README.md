@@ -20,12 +20,12 @@ You simply keep writing the way you already do. The system just needs to be set 
 
 ## Main features
 
-- **Idempotent sync** — re-running never duplicates GitHub commits or PostHog events
-- **Backfill** — process every Doc you already have, or backfill all existing markdown into PostHog as historical events
-- **LLM-tagged frontmatter** — structured `mood`, `emotions`, `emotion_scores`, `people`, `activities`, `themes`, `summary`
+- **De-duplicated sync** — re-running never duplicates GitHub commits or PostHog events
+- **Backfill** — process every Doc you already have, or backfill all existing entries into PostHog as historical events
+- **LLM-tagged frontmatter** — structured `mood`, `emotions`, `emotion_scores`, `people`, `activities`, `themes`, `summary` using a free API call via Ollama
 - **Email echoes** — periodic digest of past-self entries with LLM highlights
-- **PostHog events** — rich properties (date parts, day-of-week, weekend flag, dominant emotion, counts) ready for HogQL
-- **Self-hosted, no servers** — runs entirely on Apps Script's free time-based triggers
+- **Free PostHog events** — rich properties (date parts, day-of-week, weekend flag, dominant emotion, counts) ready for HogQL
+- **Self-hosted, no servers** — runs entirely on Google Apps Script's free time-based triggers
 
 ## Architecture
 
