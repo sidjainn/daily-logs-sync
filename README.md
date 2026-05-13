@@ -81,11 +81,35 @@ If you skip any of these, the script just won't run that integration. GitHub-les
 
 ### 4. Set up your Google Doc
 
-The script looks for Docs named exactly: **`Mmm daily log YYYY`** — e.g. `May daily log 2026`.
+The script needs a specific naming convention to pick up dates correctly.
 
-Inside each Doc, each **tab** is one day. Tab title format: anything starting with the day number, like `May 12 - Tuesday` or `12 - some title`.
+**Doc name** — exactly `Mmm daily log YYYY`. Three-letter month, lowercase "daily log", four-digit year.
 
-Already have Docs in a different format? Rename them, or edit `findAllLogDocs_` and the tab-date parser in `processDoc_` to match yours.
+✅ `May daily log 2026`
+✅ `Dec daily log 2025`
+❌ `May 2026 logs` · `daily log May 2026` · `May daily log` (no year)
+
+**Year** comes from the Doc name. **Month + day** come from the tab title.
+
+**Tab title** — must contain a month + day, anywhere in the title. The script matches:
+
+```
+(Jan|Feb|...|Dec OR January|February|...|December) <day>
+```
+
+✅ `May 12 - Coffee with Alex` → May 12
+✅ `May 12` → May 12
+✅ `Tuesday, May 12 — gym day` → May 12
+✅ `May 12: trip planning` → May 12
+❌ `12 - some title` (no month name)
+❌ `05/12 - notes` (numeric date)
+❌ `journal entry` (no date at all — skipped silently)
+
+**Filename slug** — what comes after the date prefix (`Mmm DD - `, `Mmm DD: `, etc.) becomes the slug. So tab title `May 12 - Coffee with Alex` → file `2026/05/2026-05-12--coffee-with-alex.md`.
+
+**Nested tabs** — supported. If you organize by week or theme inside a month Doc, child tabs get flattened and parsed the same way.
+
+Already have Docs in a different format? Rename them, or edit `findAllLogDocs_` (Doc-name regex, line ~206) and `parseDateFromTitle_` (tab-title regex, line ~252) to match yours.
 
 ### 5. Authorize and test
 
