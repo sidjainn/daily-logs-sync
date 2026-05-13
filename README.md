@@ -1,8 +1,8 @@
 # daily-logs-sync
 
-A small Google Apps Script that turns Google Docs journals into a structured personal data pipeline — markdown in GitHub, tagged with an LLM, surfaced as email "echoes" of past entries, and streamed to PostHog as events for dashboards.
+A small automation that turns your daily Google Docs journal entries into something more useful. Every entry gets backed up to GitHub, tagged by AI for mood, emotions, people, and themes, emailed back to you as flashbacks from 1 / 3 / 6 / 12 months ago like Google Photos memories, and streamed to PostHog so you can notice interesting patterns from your journaling.
 
-Built around one habit: write daily into a Google Doc. Everything else is automatic.
+You simply keep writing the way you already do. The system just needs to be set up once, and is completely free of cost.
 
 ## What it does
 
