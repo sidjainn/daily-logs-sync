@@ -1,5 +1,5 @@
 // ===== CONFIG =====
-const GITHUB_OWNER = 'sidjainn';
+const GITHUB_OWNER = 'USERNAME';
 const GITHUB_REPO = 'daily-logs';
 const GITHUB_BRANCH = 'main';
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -14,10 +14,7 @@ const ECHO_INTERVAL_DAYS = 4;
 
 const POSTHOG_HOST = 'https://us.i.posthog.com'; // use 'https://eu.i.posthog.com' if EU
 const POSTHOG_API_KEY_PROP = 'POSTHOG_API_KEY';
-const POSTHOG_EVENT_NAME = 'daily_log';
-
-// Recipient for echoes email; defaults to active user. Override if needed.
-const ECHO_RECIPIENT = ''; // leave blank to use Session.getActiveUser().getEmail()
+const POSTHOG_EVENT_NAME = 'EVENT_NAME';
 
 // ===== AUTH =====
 function getToken_() {
@@ -146,7 +143,7 @@ function echoesDigest() {
     }
   }
   if (!sections.length) { Logger.log('no echoes — skip'); return; }
-  const recipient = ECHO_RECIPIENT || Session.getActiveUser().getEmail();
+  const recipient = Session.getActiveUser().getEmail();
   MailApp.sendEmail({
     to: recipient,
     subject: `📅 Echoes — ${formatDate_(today)}`,

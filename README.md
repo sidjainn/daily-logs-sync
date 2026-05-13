@@ -56,15 +56,16 @@ At the top of `apps-script.gs`, edit:
 
 | Variable | What | Default |
 |---|---|---|
-| `GITHUB_OWNER` | Your GitHub username | `'sidjainn'` |
+| `GITHUB_OWNER` | Your GitHub username | `'USERNAME'` |
 | `GITHUB_REPO` | Repo to sync into | `'daily-logs'` |
 | `GITHUB_BRANCH` | Branch | `'main'` |
 | `POSTHOG_HOST` | `us.i.posthog.com` or `eu.i.posthog.com` | US |
-| `POSTHOG_EVENT_NAME` | Event name in PostHog | `'daily_log'` |
-| `ECHO_RECIPIENT` | Email for echoes (blank = your own) | `''` |
+| `POSTHOG_EVENT_NAME` | Event name in PostHog (e.g. `'daily_log'`) | `'EVENT_NAME'` |
 | `LLM_MODEL` | Ollama Cloud model | `'gemma4:31b-cloud'` |
 | `ECHO_INTERVAL_DAYS` | Days between echo emails | `4` |
 | `ECHO_ANCHORS_MONTHS` | Months-ago to echo | `[1, 3, 6, 12]` |
+
+Echoes email goes to the Google account running the script. Override by editing `recipient` in `echoesDigest`.
 
 ### 3. Set secrets (Script Properties)
 
