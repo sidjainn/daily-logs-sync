@@ -6,6 +6,8 @@ A small automation that turns your daily Google Docs journal entries into someth
 
 You simply keep writing the way you already do. The system just needs to be set up once, and is completely free of cost.
 
+▶️ **[Watch the video walkthrough](https://youtu.be/N4JE-jT3VMM)**
+
 ## What it does
 
 - Reads your daily journal entries from a Google Doc (one Doc per month, one tab per day)
