@@ -13,7 +13,7 @@ You simply keep writing the way you already do. The system just needs to be set 
 - Reads your daily journal entries from a Google Doc (one Doc per month, one tab per day)
 - Converts each entry to clean markdown
 - Tags it via an LLM (mood, emotions, people, activities, themes, one-line summary)
-- Pushes it to a GitHub repo as `YYYY/MM/YYYY-MM-DD--slug.md` with YAML frontmatter
+- Pushes it to a private GitHub repo as `YYYY/MM/YYYY-MM-DD--slug.md` with YAML frontmatter
 - Emails you periodic "echoes" of what you wrote 1 / 3 / 6 / 12 months ago, with LLM-generated highlights
 - Sends a `daily_log` event per entry to PostHog so you can build mood/emotion/activity dashboards
 - Optionally writes a sentiment HTML chart back into the same repo (`reports/sentiment.html`)
