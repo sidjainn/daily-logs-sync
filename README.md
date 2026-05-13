@@ -1,5 +1,7 @@
 # daily-logs-sync
 
+![daily-logs-sync — your journal, more meaningful over time](./assets/hero.png)
+
 A small automation that turns your daily Google Docs journal entries into something more useful. Every entry gets backed up to GitHub, tagged by AI for mood, emotions, people, and themes, emailed back to you as flashbacks from 1 / 3 / 6 / 12 months ago like Google Photos memories, and streamed to PostHog so you can notice interesting patterns from your journaling.
 
 You simply keep writing the way you already do. The system just needs to be set up once, and is completely free of cost.
