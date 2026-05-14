@@ -4,27 +4,19 @@
 
 A small automation that turns your daily Google Docs journal entries into something more useful. Every entry gets backed up to GitHub, tagged by AI for mood, emotions, people, and themes, emailed back to you as flashbacks from 1 / 3 / 6 / 12 months ago like Google Photos memories, and streamed to PostHog so you can notice interesting patterns from your journaling.
 
-You simply keep writing the way you already do. The system just needs to be set up once, and is completely free of cost.
+You simply keep writing the way you already do. The system just needs to be set up once, and is free.
 
 ▶️ **[Watch the video walkthrough](https://youtu.be/N4JE-jT3VMM)**
 
 ## What it does
 
-- Reads your daily journal entries from a Google Doc (one Doc per month, one tab per day)
-- Converts each entry to clean markdown
-- Tags it via an LLM (mood, emotions, people, activities, themes, one-line summary)
-- Pushes it to a private GitHub repo as `YYYY/MM/YYYY-MM-DD--slug.md` with YAML frontmatter
-- Emails you periodic "echoes" of what you wrote 1 / 3 / 6 / 12 months ago, with LLM-generated highlights
-- Sends a `daily_log` event per entry to PostHog so you can build mood/emotion/activity dashboards
-- Optionally writes a sentiment HTML chart back into the same repo (`reports/sentiment.html`)
-
-## Main features
-
+- **Reads & backs up entries** — pulls your daily journal entries from a Google Doc (one Doc per month, one tab per day), converts each to clean markdown, and pushes to a private GitHub repo as `YYYY/MM/YYYY-MM-DD--slug.md` with YAML frontmatter
+- **LLM-tagged frontmatter** — structured `mood`, `emotions`, `emotion_scores`, `people`, `activities`, `themes`, `summary` via [Ollama's hosted Cloud API](https://ollama.com/search?c=cloud) (free — not the local Ollama runtime)
+- **Email echoes** — periodic digest of past-self entries from 1 / 3 / 6 / 12 months ago, with LLM-generated highlights
+- **PostHog events** — a `daily_log` event per entry with rich properties (date parts, day-of-week, weekend flag, dominant emotion, counts) ready for HogQL dashboards
 - **De-duplicated sync** — re-running never duplicates GitHub commits or PostHog events
-- **Backfill** — process every Doc you already have, or backfill all existing entries into PostHog as historical events
-- **LLM-tagged frontmatter** — structured `mood`, `emotions`, `emotion_scores`, `people`, `activities`, `themes`, `summary` using a free API call via Ollama
-- **Email echoes** — periodic digest of past-self entries with LLM highlights
-- **Free PostHog events** — rich properties (date parts, day-of-week, weekend flag, dominant emotion, counts) ready for HogQL
+- **Backfill** — process every Doc you already have, or backfill all existing markdown entries into PostHog as historical events
+- **Optional sentiment report** — weekly HTML chart (`reports/sentiment.html`) written back into the same repo
 - **Self-hosted, no servers** — runs entirely on Google Apps Script's free time-based triggers
 
 ## Architecture
@@ -48,7 +40,9 @@ Apps Script
 
 ## Getting started
 
-You need a Google account. GitHub, an LLM API key, and PostHog are each optional — the script soft-skips any integration whose key isn't set.
+You need a Google account and a private GitHub repo (the storage layer — required). The LLM API key and PostHog are each optional — the script soft-skips either integration if its key isn't set.
+
+> ⚠️ **Step 4 (Google Doc naming) is the most common setup snag.** If `dailyRun` finds no entry, jump there first.
 
 ### 1. Create the Apps Script project
 
@@ -82,14 +76,14 @@ In Apps Script: **Project Settings** (gear icon) → **Script properties** → a
 | Property | Required for | How to get |
 |---|---|---|
 | `GITHUB_TOKEN` | GitHub sync | [Create a fine-grained token](https://github.com/settings/personal-access-tokens/new) with `Contents: read & write` scope on your target repo |
-| `OLLAMA_API_KEY` | LLM tagging + echoes highlights | Free — [ollama.com](https://ollama.com) → sign up → **API keys**. Several cloud models available; swap via `LLM_MODEL` |
+| `OLLAMA_API_KEY` | LLM tagging + echoes highlights | Free — [ollama.com](https://ollama.com) → sign up → **API keys**. This is Ollama's hosted Cloud API (not the local desktop runtime). Several cloud models available; swap via `LLM_MODEL` |
 | `POSTHOG_API_KEY` | PostHog events | [Project settings → Project API key](https://posthog.com/docs/api#how-to-find-your-api-key) |
 
 If you skip any of these, the script just won't run that integration. GitHub-less mode still tags and emails. PostHog-less mode still pushes to GitHub.
 
-### 4. Set up your Google Doc
+### 4. Set up your Google Doc ⚠️ highest-friction step
 
-The script needs a specific naming convention to pick up dates correctly.
+The script needs a specific naming convention to pick up dates correctly. Get this wrong and `dailyRun` silently finds nothing.
 
 **Doc name** — exactly `Mmm daily log YYYY`. Three-letter month, lowercase "daily log", four-digit year.
 
@@ -147,9 +141,10 @@ This walks the GitHub repo, builds an event per file with the original date as t
 
 ## Optional integrations
 
+GitHub is **required** — it's the storage layer. Everything below is optional and soft-skipped when its key/trigger is missing.
+
 | Integration | Skip by | Effect |
 |---|---|---|
-| **GitHub** | Not setting `GITHUB_TOKEN` | Script can't function — GitHub is the storage layer |
 | **LLM tagging** | Not setting `OLLAMA_API_KEY` | Entries push with no frontmatter; echoes have no highlights |
 | **PostHog** | Not setting `POSTHOG_API_KEY` | No events emitted; everything else works |
 | **Echoes email** | Don't run `installEchoesTrigger` | No digests sent |
@@ -192,6 +187,6 @@ summary: Built the sync pipeline end-to-end and went for an evening walk.
 - The LLM prompt asks for strict JSON output. If your model drifts, swap `LLM_MODEL` for another free Ollama Cloud model ([model list](https://ollama.com/search?c=cloud)).
 - The Apps Script trigger UI only shows "Daily" — interval-based triggers like "every 4 days" exist programmatically but the UI rounds them visually. Use the `installEchoesTrigger` function to set them; don't recreate via the UI.
 
-## Built by
+---
 
-[sidjainn](https://github.com/sidjainn) — [sidjainn.github.io](https://sidjainn.github.io)
+Built by [sidjainn](https://github.com/sidjainn) — [sidjainn.github.io](https://sidjainn.github.io)
