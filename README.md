@@ -56,9 +56,9 @@ You need a Google account. GitHub, an LLM API key, and PostHog are each optional
 2. Replace the `Code.gs` content with [`apps-script.gs`](./apps-script.gs) from this repo
 3. Save
 
-### 2. Configure variables
+### 2. Configure variables (not secrets — edit in code)
 
-Inside the Apps Script editor, open the `Code.gs` file you just pasted into. The first 20-ish lines are a `// ===== CONFIG =====` block — edit the values right there in the editor, then **Save** (`Cmd/Ctrl + S`).
+Inside the Apps Script editor, open the `Code.gs` file you just pasted into. The first 20-ish lines are a `// ===== CONFIG =====` block. These are plain configuration values, **not secrets** — edit them directly in the editor (don't add them as Script Properties), then **Save** (`Cmd/Ctrl + S`).
 
 | Variable | What | Default |
 |---|---|---|
@@ -70,6 +70,8 @@ Inside the Apps Script editor, open the `Code.gs` file you just pasted into. The
 | `LLM_MODEL` | Any Ollama Cloud model — free, [pick from the model list](https://ollama.com/search?c=cloud) | `'gemma4:31b-cloud'` |
 | `ECHO_INTERVAL_DAYS` | Days between echo emails | `4` |
 | `ECHO_ANCHORS_MONTHS` | Months-ago to echo | `[1, 3, 6, 12]` |
+
+> Secrets (API keys/tokens) go in **Script Properties** — see Step 3. Everything in this table is hardcoded in `Code.gs` and ignored if added as Script Properties.
 
 Echoes email goes to the Google account running the script. Override by editing `recipient` in `echoesDigest`.
 

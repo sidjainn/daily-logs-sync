@@ -1,6 +1,7 @@
-// ===== CONFIG =====
-const GITHUB_OWNER = 'USERNAME';
-const GITHUB_REPO = 'daily-logs';
+// ===== CONFIG (edit these directly — NOT secrets, NOT read from Script Properties) =====
+// Secrets (API keys/tokens) live in Script Properties — see *_API_KEY_PROP constants below.
+const GITHUB_OWNER = 'USERNAME';        // your GitHub username
+const GITHUB_REPO = 'daily-logs';       // target repo name
 const GITHUB_BRANCH = 'main';
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const MONTHS_LONG = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -14,7 +15,7 @@ const ECHO_INTERVAL_DAYS = 4;
 
 const POSTHOG_HOST = 'https://us.i.posthog.com'; // use 'https://eu.i.posthog.com' if EU
 const POSTHOG_API_KEY_PROP = 'POSTHOG_API_KEY';
-const POSTHOG_EVENT_NAME = 'EVENT_NAME';
+const POSTHOG_EVENT_NAME = 'EVENT_NAME';        // not a secret — edit here, not in Script Properties
 
 // ===== AUTH =====
 function getToken_() {
